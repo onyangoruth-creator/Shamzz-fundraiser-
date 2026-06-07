@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Shamzz Fundraiser Raiser</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: #ffffff;
+      color: #0a1f3b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      margin: 0;
+    }
+
+    .fundraiser-card {
+      max-width: 600px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 20, 60, 0.25);
+      padding: 2rem 1.8rem;
+      border: 1px solid rgba(0, 32, 84, 0.08);
+      transition: all 0.2s ease;
+      backdrop-filter: blur(2px);
+    }
+
+    .navy-text {
+      color: #0b2b5e;
+    }
+
+    .bg-navy {
+      background-color: #0b2b5e;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .menu-icon {
+      font-size: 1.8rem;
+      color: #0b2b5e;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.2s;
+      background: rgba(11, 43, 94, 0.05);
+      padding: 0.5rem;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-icon:hover {
+      transform: rotate(90deg);
+      color: #ffffff;
+      background: #0b2b5e;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-icon {
+      font-size: 2rem;
+      color: #0b2b5e;
+    }
+
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: #0b2b5e;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: #3b4b66;
+      margin-top: 0.3rem;
+      font-weight: 500;
+    }
+
+    .progress-section {
+      margin: 2rem 0 1.5rem;
+    }
+
+    .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #0b2b5e;
+    }
+
+    .progress-bar-bg {
+      background: #e9edf4;
+      height: 20px;
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: #0b2b5e;
+      border-radius: 40px;
+      transition: width 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      box-shadow: 0 0 12px rgba(11, 43, 94, 0.5);
+      position: relative;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      right: 6px;
+      top: 4px;
+      bottom: 4px;
+      width: 12px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 30px;
+      filter: blur(2px);
+    }
+
+    .target-info {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #2c3e5c;
+      font-weight: 500;
+    }
+
+    .donate-actions {
+      display: flex;
+      gap: 0.8rem;
+      margin: 2rem 0 1.8rem;
+      flex-wrap: wrap;
+    }
+
+    .amount-btn {
+      flex: 1;
+      min-width: 70px;
+      background: white;
+      border: 1.5px solid #0b2b5e;
+      color: #0b2b5e;
+      font-weight: 700;
+      padding: 0.8rem 0.5rem;
+      border-radius: 3rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-size: 1rem;
+      background: #ffffff;
+      letter-spacing: 0.3px;
+    }
+
+    .amount-btn:hover {
+      background: #0b2b5e;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 18px -10px rgba(11, 43, 94, 0.4);
+    }
+
+    .amount-btn.active {
+      background: #0b2b5e;
+      color: white;
+      box-shadow: 0 8px 14px -6px #0b2b5e;
+    }
+
+    .custom-amount {
+      display: flex;
+      align-items: center;
+      background: #f8faff;
+      border: 1.5px solid #0b2b5e;
+      border-radius: 3rem;
+      padding: 0 1.2rem;
+      flex: 1.2;
+      min-width: 130px;
+    }
+
+    .custom-amount input {
+      border: none;
+      background: transparent;
+      padding: 0.8rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0b2b5e;
+      width: 100%;
+      outline: none;
+    }
+
+    .custom-amount input::placeholder {
+      color: #7c8aa5;
+      font-weight: 500;
+    }
+
+    .currency {
+      font-weight: 700;
+      color: #0b2b5e;
+      margin-right: 4px;
+    }
+
+    .donate-main-btn {
+      background: #0b2b5e;
+      color: white;
+      border: none;
+      font-weight: 700;
+      font-size: 1.3rem;
+      padding: 1rem 2rem;
+      border-radius: 3rem;
+      width: 100%;
+      margin: 0.8rem 0 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 18px -8px #0b2b5e;
+      letter-spacing: 0.5px;
+    }
+
+    .donate-main-btn:hover {
+      background: #0e3872;
+      transform: scale(1.02);
+      box-shadow: 0 16px 24px -10px #0b2b5e;
+    }
+
+    .phone-badge {
+      background: #f0f4ff;
+      border-radius: 3rem;
+      padding: 0.7rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: #0b2b5e;
+      font-weight: 600;
+      margin: 1.2rem 0 1.8rem;
+      border: 1px dashed #0b2b5e;
+      font-size: 1rem;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .phone-badge i {
+      color: #0b2b5e;
+      font-size: 1.1rem;
+    }
+
+    .menu-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+      background: #ffffff;
+      border-radius: 1.8rem;
+      margin-top: 0.5rem;
+      border: 1px solid rgba(11, 43, 94, 0.15);
+    }
+
+    .menu-panel.open {
+      max-height: 500px;
+      padding: 1.5rem 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .menu-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+    }
+
+    .menu-item {
+      flex: 1 1 calc(33% - 0.8rem);
+      background: #f9fbff;
+      border-radius: 1.2rem;
+      padding: 1rem 0.5rem;
+      text-align: center;
+      color: #0b2b5e;
+      font-weight: 600;
+      transition: all 0.25s;
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+    }
+
+    .menu-item i {
+      font-size: 1.6rem;
+      color: #0b2b5e;
+      margin-bottom: 0.2rem;
+    }
+
+    .menu-item:hover {
+      background: #0b2b5e;
+      color: white;
+      border-color: #0b2b5e;
+      transform: translateY(-4px);
+      box-shadow: 0 14px 20px -12px rgba(11,43,94,0.4);
+    }
+
+    .menu-item:hover i {
+      color: white;
+    }
+
+    .extra-features {
+      display: flex;
+      justify-content: space-around;
+      margin: 1.2rem 0 0.5rem;
+      font-size: 0.85rem;
+      color: #2a3b5c;
+      font-weight: 500;
+    }
+
+    hr {
+      border: 0.5px solid rgba(11, 43, 94, 0.15);
+      margin: 1rem 0;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #4f5f7a;
+    }
+
+    @media (max-width: 400px) {
+      .fundraiser-card {
+        padding: 1.5rem 1.2rem;
+      }
+      .menu-item {
+        flex: 1 1 calc(50% - 0.8rem);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="fundraiser-card">
+    <!-- Header with menu toggle -->
+    <div class="header">
+      <div class="logo-area">
+        <i class="fas fa-hand-holding-heart logo-icon"></i>
+        <div>
+          <div class="title">Shamzz</div>
+          <div class="subtitle">Fundraiser Raiser</div>
+        </div>
+      </div>
+      <div class="menu-icon" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+
+    <!-- Progression Bar (starts at zero, real donations will update it) -->
+    <div class="progress-section">
+      <div class="progress-stats">
+        <span id="raisedDisplay">KSh 0</span>
+        <span><span id="percentDisplay">0</span>%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+      </div>
+      <div class="target-info">
+        <span>Goal: KSh 500,000</span>
+        <span id="remainingDisplay">KSh 500,000 to go</span>
+      </div>
+    </div>
+
+    <!-- Quick amount buttons (no preselected people) -->
+    <div class="donate-actions">
+      <button class="amount-btn" data-amount="1000">1K</button>
+      <button class="amount-btn" data-amount="5000">5K</button>
+      <button class="amount-btn" data-amount="10000">10K</button>
+      <div class="custom-amount">
+        <span class="currency">KSh</span>
+        <input type="number" id="customAmountInput" placeholder="Other amount" min="1" value="">
+      </div>
+    </div>
+
+    <!-- Main Donate Button (directs payment to +254797810142, no STK push) -->
+    <button class="donate-main-btn" id="donateMainBtn">
+      <i class="fas fa-paper-plane"></i> Send Donation
+    </button>
+
+    <!-- Recipient phone display -->
+    <div class="phone-badge" id="phoneBadge">
+      <i class="fas fa-phone-alt"></i> +254 797 810 142
+      <span style="margin-left:auto; font-size:0.8rem; opacity:0.8;">M-Pesa / Bank</span>
+    </div>
+
+    <!-- Menu with features (no fake history/people) -->
+    <div class="menu-panel" id="menuPanel">
+      <div class="menu-grid">
+        <div class="menu-item" id="shareAction">
+          <i class="fas fa-share-alt"></i> Share
+        </div>
+        <div class="menu-item" id="historyAction">
+          <i class="fas fa-history"></i> History
+        </div>
+        <div class="menu-item" id="leaderboardAction">
+          <i class="fas fa-trophy"></i> Top Donors
+        </div>
+        <div class="menu-item" id="updatesAction">
+          <i class="fas fa-bullhorn"></i> Updates
+        </div>
+        <div class="menu-item" id="galleryAction">
+          <i class="fas fa-images"></i> Gallery
+        </div>
+        <div class="menu-item" id="contactAction">
+          <i class="fas fa-envelope"></i> Contact
+        </div>
+      </div>
+      <div class="extra-features">
+        <span><i class="fas fa-check-circle" style="color:#0b2b5e;"></i> Transparent</span>
+        <span><i class="fas fa-lock" style="color:#0b2b5e;"></i> Secure</span>
+        <span><i class="fas fa-globe-africa"></i> Kenya</span>
+      </div>
+    </div>
+    
+    <hr>
+    <div class="footer-note">
+      <i class="far fa-clock"></i> Every contribution counts • Shamzz Foundation
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ----- CLEAN FUNDRAISER STATE (no fake data) -----
+      const GOAL = 500000;
+      let currentRaised = 0; // Start at zero – ready for real use
+
+      // DOM elements
+      const raisedDisplay = document.getElementById('raisedDisplay');
+      const percentDisplay = document.getElementById('percentDisplay');
+      const progressFill = document.getElementById('progressFill');
+      const remainingDisplay = document.getElementById('remainingDisplay');
+      const customInput = document.getElementById('customAmountInput');
+      const amountButtons = document.querySelectorAll('.amount-btn');
+      const donateMainBtn = document.getElementById('donateMainBtn');
+      const menuToggle = document.getElementById('menuToggle');
+      const menuPanel = document.getElementById('menuPanel');
+      const phoneBadge = document.getElementById('phoneBadge');
+
+      // Target phone number (no STK push)
+      const TARGET_PHONE = '+254797810142';
+
+      // Format currency helper
+      const formatKES = (value) => 'KSh ' + value.toLocaleString('en-KE');
+
+      // Update progress bar and text
+      function updateProgressUI() {
+        let raised = Math.min(currentRaised, GOAL);
+        raised = Math.max(0, raised);
+        const percentage = Math.floor((raised / GOAL) * 100);
+        const remaining = GOAL - raised;
+
+        raisedDisplay.textContent = formatKES(raised);
+        percentDisplay.textContent = percentage;
+        progressFill.style.width = `${percentage}%`;
+        remainingDisplay.textContent = `${formatKES(remaining)} to go`;
+      }
+
+      // Process donation – simulates sending to phone number
+      function processDonation(amount) {
+        if (!amount || isNaN(amount) || amount <= 0) {
+          alert('Please enter a valid donation amount.');
+          return false;
+        }
+        const donationAmount = Math.floor(amount);
+        const confirmMessage = `You are about to send KSh ${donationAmount.toLocaleString()} to ${TARGET_PHONE}.\n\nThis will direct your payment to Shamzz Fundraiser.\nProceed? (No automatic STK push)`;
+        
+        if (confirm(confirmMessage)) {
+          currentRaised += donationAmount;
+          updateProgressUI();
+          alert(`✅ Thank you! KSh ${donationAmount.toLocaleString()} directed to ${TARGET_PHONE}.\nYour support is appreciated.`);
+          if (customInput) customInput.value = '';
+          return true;
+        }
+        return false;
+      }
+
+      // Get selected donation amount
+      function getDonationAmount() {
+        if (customInput && customInput.value.trim() !== '') {
+          const val = parseInt(customInput.value.trim(), 10);
+          if (!isNaN(val) && val > 0) return val;
+          else {
+            alert('Please enter a valid amount in the custom field.');
+            return null;
+          }
+        }
+        const activeBtn = document.querySelector('.amount-btn.active');
+        if (activeBtn && activeBtn.dataset.amount) {
+          return parseInt(activeBtn.dataset.amount, 10);
+        }
+        alert('Please select a quick amount or enter a custom amount.');
+        return null;
+      }
+
+      // Highlight quick button
+      function setActiveButton(button) {
+        amountButtons.forEach(btn => btn.classList.remove('active'));
+        if (button) {
+          button.classList.add('active');
+          if (customInput) customInput.value = '';
+        }
+      }
+
+      // ----- EVENT LISTENERS -----
+      amountButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          setActiveButton(this);
+        });
+      });
+
+      if (customInput) {
+        customInput.addEventListener('input', function() {
+          amountButtons.forEach(btn => btn.classList.remove('active'));
+        });
+      }
+
+      donateMainBtn.addEventListener('click', function() {
+        const amount = getDonationAmount();
+        if (amount !== null) {
+          processDonation(amount);
+          amountButtons.forEach(btn => btn.classList.remove('active'));
+        }
+      });
+
+      // Menu toggle animation
+      menuToggle.addEventListener('click', function() {
+        menuPanel.classList.toggle('open');
+        const icon = menuToggle.querySelector('i');
+        if (menuPanel.classList.contains('open')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-times');
+        } else {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      });
+
+      // Menu feature actions (generic, no fake names/numbers)
+      document.getElementById('shareAction')?.addEventListener('click', () => {
+        alert('📤 Share this fundraiser:\n"Help Shamzz Fundraiser Raiser reach KSh 500K!"\nCopy the link and spread the word.');
+      });
+      document.getElementById('historyAction')?.addEventListener('click', () => {
+        alert('📋 Donation history will appear here after contributions are made.');
+      });
+      document.getElementById('leaderboardAction')?.addEventListener('click', () => {
+        alert('🏆 Top donors will be shown once donations start coming in.');
+      });
+      document.getElementById('updatesAction')?.addEventListener('click', () => {
+        alert('📢 Stay tuned for updates from the Shamzz team.');
+      });
+      document.getElementById('galleryAction')?.addEventListener('click', () => {
+        alert('🖼️ Gallery will feature photos from our community activities.');
+      });
+      document.getElementById('contactAction')?.addEventListener('click', () => {
+        alert('📧 Contact Shamzz Organizer:\nEmail: shamzz@fundraiser.co.ke\nPhone: +254797810142');
+      });
+
+      // Copy phone number on badge click
+      if (phoneBadge) {
+        phoneBadge.addEventListener('click', function() {
+          navigator.clipboard?.writeText(TARGET_PHONE).then(() => {
+            alert('📋 Phone number copied: ' + TARGET_PHONE);
+          }).catch(() => {
+            alert('Phone: ' + TARGET_PHONE);
+          });
+        });
+      }
+
+      // Initialize clean UI
+      updateProgressUI();
+    })();
+  </script>
+</body>
+</html>
